@@ -76,8 +76,8 @@ class PlaidAccess():
             options.offset = len(transactions)
             request = TransactionsGetRequest(
             access_token=access_token,
-            start_date=start_date(),
-            end_date=end_date(),
+            start_date=start_date,
+            end_date=end_date,
             options=options
             )
             try:
