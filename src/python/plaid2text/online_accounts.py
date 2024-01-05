@@ -126,7 +126,10 @@ class PlaidAccess():
                 )
                 account_name = cm.get_account_in_item(item['access_token'])
                 startDateStr = prompt('This is the first time you are syncing with the institution containing ' + account_name + ' using these credentials.\nEnter the start date for transactions you wish to download in YYYY-MM-DD format.\nLeave blank if you want to download all transactions:\n')
-                startDate = datetime.datetime.strptime(startDateStr, '%Y-%m-%d').date()
+                if startDateStr == "":
+                    startDate = None
+                else:
+                    startDate = datetime.datetime.strptime(startDateStr, '%Y-%m-%d').date()
             try:
                 response = self.client.transactions_sync(request)
             except plaid.ApiException as ex:
