@@ -25,13 +25,16 @@ class Entry:
         self.options = options
 
         self.transaction = transaction
+
+        print(type(self.transaction))
+
         # TODO: document this
-        if 'addons' in options:
-            self.transaction['addons'] = dict(
-                (k, fields[v - 1]) for k, v in options.addons.items()  # NOQA
-            )
-        else:
-            self.transaction['addons'] = {}
+        # if 'addons' in options:
+        #     self.transaction['addons'] = dict(
+        #         (k, fields[v - 1]) for k, v in options.addons.items()  # NOQA
+        #     )
+        # else:
+        #     self.transaction['addons'] = {}
 
         # The id for the transaction
         self.transaction['transaction_id'] = self.transaction['transaction_id']
@@ -180,7 +183,7 @@ class OutputRenderer(metaclass=ABCMeta):
             headers = ''.join(open(self.options.headers_file, mode='r').readlines())
             print(headers, file=self.options.outfile)
         print(*self.journal_lines, sep='\n', file=self.options.outfile)
-        return out 
+        return out
 
     def _process_plaid_transactions(self, callback=None):
         """Process plaid transaction and return beancount/ledger formatted
@@ -201,8 +204,8 @@ class OutputRenderer(metaclass=ABCMeta):
             out.append(dic)
 
             self.journal_lines.append(entry.journal_entry(payee, account, tags))
-        # update database all at once. Previously transactions were updated one by one but 
-        # if the process was interrupted, txns prior to the interrupt would be marked as pulled 
+        # update database all at once. Previously transactions were updated one by one but
+        # if the process was interrupted, txns prior to the interrupt would be marked as pulled
         # without ever having their output sent to the outfile.
         if callback: callback(out)
         return out

@@ -419,7 +419,7 @@ def main():
         return
     options = _parse_args_and_config_file()
     truthy = ['true', 'yes', '1', 't']
-    
+
     # Convert config values to Boolean if pulled from file
     if not isinstance(options.quiet, bool):
         options.quiet = options.quiet.lower() in truthy
@@ -455,7 +455,7 @@ def main():
                     for p in pending:
                         print(p)
                 sys.exit(0)
-    
+
     if options.sync_all_transactions:
         print('Syncing all accounts...')
         PlaidAccess().sync_transactions(options)

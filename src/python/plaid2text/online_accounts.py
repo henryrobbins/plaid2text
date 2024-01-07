@@ -64,11 +64,11 @@ class PlaidAccess():
                         sys.exit(0)
                     print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
                     print("    %s" % response['error_message'], file=sys.stderr )
-                    sys.exit(1)                        
+                    sys.exit(1)
             else:
                 print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
                 print("    %s" % response['error_message'], file=sys.stderr )
-                sys.exit(1)        
+                sys.exit(1)
         transactions = response['transactions']
         total_transactions = response['total_transactions']
         while len(transactions) < total_transactions:
@@ -108,7 +108,7 @@ class PlaidAccess():
             else:
                 item = {'access_token': config['access_token']}
                 items.append(item)
-        
+
         items = list({tuple(sorted(d.items())): d for d in items}.values())  # deduplicating items
 
         newTxns = []
@@ -140,11 +140,11 @@ class PlaidAccess():
                     except BaseException as e:
                         if e.code == 0:
                             sys.exit(0)
-                        print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
+                        # print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
                         print("    %s" % response['error_message'], file=sys.stderr )
-                        sys.exit(1)                        
+                        sys.exit(1)
                 else:
-                    print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
+                    # print("Unable to update plaid account [%s] due to: " % account_ids, file=sys.stderr)
                     print("    %s" % response['error_message'], file=sys.stderr )
                     sys.exit(1)
 
@@ -183,7 +183,7 @@ class PlaidAccess():
             for config in configs:
                 if config['access_token'] == item['access_token']:
                     cm.update_cursor(config['account_name'], item['cursor'])
-        
+
         sys.exit(0)
 
 def store_transactions (options, accounts):
@@ -201,7 +201,7 @@ def store_transactions (options, accounts):
                 account.plaid_account,
                 account.posting_account
             )
-        print("New transactions in "+account.plaid_account+", saving to database now")
+        # print("New transactions in "+account.plaid_account+", saving to database now")
         sm.save_transactions(account.transactions)
 
 class SyncResponse():
@@ -211,7 +211,7 @@ class SyncResponse():
         self.plaid_account = self.plaid_account_lookup()
         self.posting_account = self.posting_account_lookup()
         self.next_cursor = cursor
-    
+
     def plaid_account_lookup(self):
         accounts = cm.get_configured_accounts()
         for account in accounts:
