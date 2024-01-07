@@ -209,7 +209,7 @@ class SQLiteStorage():
             if mark_pulled:
                 txn['date_last_pulled'] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-            txn['archived'] = null
+            txn['archived'] = None
 
             c = self.conn.cursor()
             c.execute("""

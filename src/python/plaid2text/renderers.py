@@ -95,9 +95,9 @@ class Entry:
             'associated_account': account,
             'payee': payee,
             'tags': ret_tags,
-            'negAmount': self.transaction['amount'] *-1
+            'negamount': self.transaction['amount'] *-1
         }
-        format_data.update(self.transaction['addons'])
+        # format_data.update(self.transaction['addons'])
         format_data.update(self.transaction)
         return template.format(**format_data)
 
@@ -199,8 +199,8 @@ class OutputRenderer(metaclass=ABCMeta):
             dic['payee'] = payee
             dic['posting_account'] = self.options.posting_account
             dic['associated_account'] = account
-            dic['date_downloaded'] = t['plaid2text']['date_downloaded']
-            dic['date_last_pulled'] = t['plaid2text']['date_last_pulled']
+            # dic['date_downloaded'] = t['plaid2text']['date_downloaded']
+            # dic['date_last_pulled'] = t['plaid2text']['date_last_pulled']
             out.append(dic)
 
             self.journal_lines.append(entry.journal_entry(payee, account, tags))
